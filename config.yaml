@@ -1,0 +1,9 @@
+dirs:
+  data_dir: ../20260317_100616
+  output_dir: processed_heads
+  processed_dir: processed_heads/processed_images
+  dataset_dir: processed_heads/processed_dataset
+
+resample:
+  new_size: [256, 256, 256]
+  interpolator: "bspline" # "nearest" "linear" "bspline" "hamming" "lanczos" "gaussian" "cosine"

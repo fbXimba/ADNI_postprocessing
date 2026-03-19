@@ -9,7 +9,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("--input", type=str, required=True, help="Path to the input image")
 parser.add_argument("--output", type=str, required=True, help="Path to save the scaled image")
-parser.add_argument("--label", type=str, required=True, help="Diagnosis label for reverse clipping (0=CN, 1=MCI, 2=AD)")
+#parser.add_argument("--label", type=str, required=True, help="Diagnosis label for reverse clipping (0=CN, 1=MCI, 2=AD)")
 args = parser.parse_args()
 
 # Rarget ranges obtained from original dataset: mean of 1st and 99th percentiles per diagnosis label
@@ -60,8 +60,21 @@ if __name__ == "__main__":
     # Read image
     input_image = sitk.ReadImage(args.input)
 
+    # Extract label from filename (assuming format: <ID>_subject_<CN/MCI/AD>_<...>.nii.gz)
+    filename = os.path.basename(args.input)
+    label = None
+    for diagnosis in CLIP_TARGET.keys():
+        if diagnosis in filename:
+            label = diagnosis
+            break
+
+    if label is None:
+        raise ValueError(
+            f"Label not found in filename: {filename}. Expected one of {list(CLIP_TARGET.keys())}."
+        )
+
     # Extract targets lower and upper percentiles for reverse clipping
-    p_low_target, p_high_target = CLIP_TARGET[args.label]
+    p_low_target, p_high_target = CLIP_TARGET[label]#[args.label]
 
     # Scale the image to the specified range
     scaled_image = scale_GL(input_image, p_low_target, p_high_target)

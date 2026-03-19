@@ -9,7 +9,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("--input", type=str, required=True, help="Path to the input image")
 parser.add_argument("--output", type=str, required=True, help="Path to save the resampled image")
-parser.add_argument("--new_size", type=int, nargs=3, default=(256, 256, 256), help="Size of output image (width height depth)")        
+parser.add_argument("--new_size", type=int, nargs=3, default=[128, 128, 128], metavar="x,y,z", help="Target output shape for resampling (width height depth)")        
 parser.add_argument("--interpolator", type=str, default="hamming", help="Interpolator type for resampling (nearest, linear, bspline, hamming, cosine, lanczos)")
 args = parser.parse_args()
 
