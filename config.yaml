@@ -1,8 +1,8 @@
 dirs:
-  data_dir: ../20260317_100616
-  output_dir: processed_heads
-  processed_dir: processed_heads/processed_images
-  dataset_dir: processed_heads/processed_dataset
+  data_dir: #../gen_datasets_processed/202.._processed
+  output_dir: #../gen_datasets_processed/202..._processed
+  processed_dir: #../gen_datasets_processed/202..._processed/processed_images
+  dataset_dir: #../gen_datasets_processed/202..._processed/processed_dataset
 
 resample:
   new_size: [256, 256, 256]

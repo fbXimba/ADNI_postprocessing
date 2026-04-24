@@ -81,9 +81,11 @@ rule copy_to_dataset:
         resampled = os.path.join(processed_dir, "{subject}", "{subject}_resampled.nii.gz")
     output:
         dataset = os.path.join(dataset_dir, "{subject}_processed.nii.gz")
+    params:
+        dataset_dir = dataset_dir
     shell:
         r"""
         set -euo pipefail
-        mkdir -p {dataset_dir}
+        mkdir -p {params.dataset_dir}
         cp {input.resampled} {output.dataset}
         """
