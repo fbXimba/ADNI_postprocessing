@@ -36,7 +36,7 @@ rule scale_GL:
     input:
         gen_file = os.path.join(data_dir, "{subject}.nii.gz")
     output:
-        scaled = os.path.join(processed_dir, "{subject}", "{subject}_scaled.nii.gz")
+        scaled = temp(os.path.join(processed_dir, "{subject}", "{subject}_scaled.nii.gz"))
     params:
         p = processed_dir
     log:
@@ -56,7 +56,7 @@ rule resample:
     input:
         scaled = os.path.join(processed_dir, "{subject}", "{subject}_scaled.nii.gz")
     output:
-        resampled = os.path.join(processed_dir, "{subject}", "{subject}_resampled.nii.gz")
+        resampled = temp(os.path.join(processed_dir, "{subject}", "{subject}_resampled.nii.gz"))
     params:
         p = processed_dir,
         new_size = config["resample"]["new_size"],
@@ -88,4 +88,5 @@ rule copy_to_dataset:
         set -euo pipefail
         mkdir -p {params.dataset_dir}
         cp {input.resampled} {output.dataset}
+        rm -f logs/{wildcards.subject}.scale.log logs/{wildcards.subject}.resample.log
         """

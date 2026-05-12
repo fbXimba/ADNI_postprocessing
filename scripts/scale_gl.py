@@ -14,9 +14,9 @@ args = parser.parse_args()
 
 # Rarget ranges obtained from original dataset: mean of 1st and 99th percentiles per diagnosis label
 CLIP_TARGET = {
-    "CN": (0.0, 131.9), #CN
-    "MCI": (0.0, 254.0), #MCI
-    "AD": (0.0, 254.0)   #AD
+    "CN": (0.0, 236.303704), #CN 236.3037037037037
+    "MCI": (0.0, 233.552791), #MCI 233.5527911877324
+    "AD": (0.0, 235.752294)   #AD 235.75229357798165
 }
 
 def scale_GL(image, min_val, max_val):

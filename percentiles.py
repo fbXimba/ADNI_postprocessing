@@ -1,13 +1,23 @@
+"""
+    File to extract the mean min nad max GL intensity values of the training dataset
+    used in the training of models after the intensity clipping with given percentiles 
+    done in preprocessing.
+    Used to restore the the sampled (synthetic images) volumes to intensity values 
+    similar to the FreeSurfeer autorecon1 output. (see scale_gl.py)
+    Done per Group/Diagnosis 
+"""
+
 import os
 import numpy as np
 import SimpleITK as sitk
 import pandas as pd
 
-df = pd.read_csv("../tesi/ADNI_processed_FS/final_subjects_CN.csv")
-data_dir = "../tesi/ADNI_processed_FS/processed_images"
+df = pd.read_csv("../../ADNI_preprocessing/train_subjects.csv")
+data_dir = "../../ADNI_preprocessing/ADNI_processed/processed_images_head"
+
+# percentiles
 p_low=0.01
 p_high=99.99
-
 
 if __name__ == "__main__":
     # read diagnosis groups 
@@ -21,7 +31,7 @@ if __name__ == "__main__":
         all_low = []
         all_high = []
         for subject in subjects:
-            file_path = os.path.join(data_dir, subject, f"{subject}_brain_resampled.nii.gz")
+            file_path = os.path.join(data_dir, subject, f"{subject}_head_fs.nii.gz")
             if os.path.exists(file_path):
                 img = sitk.ReadImage(file_path)
                 array = sitk.GetArrayFromImage(img)
